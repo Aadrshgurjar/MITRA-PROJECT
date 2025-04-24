@@ -94,39 +94,22 @@ nav ul li a.active {
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.5) 100%);
-  z-index: 0;
-}
-
 .hero h1 {
   font-size: 4rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  z-index: 1;
-  position: relative;
   animation: fadeInDown 1s ease;
 }
 
 .hero p {
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  z-index: 1;
-  position: relative;
 }
 
 .hero .tagline {
   font-size: 1.3rem;
   margin-bottom: 2.5rem;
   opacity: 0.9;
-  z-index: 1;
-  position: relative;
 }
 
 .hero button {
@@ -139,16 +122,13 @@ nav ul li a.active {
   cursor: pointer;
   margin: 0.5rem;
   border-radius: 50px;
-  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-  z-index: 1;
-  position: relative;
+  transition: transform 0.3s ease, background 0.3s ease;
   animation: pulse 2s infinite;
 }
 
 .hero button:hover {
   background: #8e0000;
   transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes pulse {
@@ -162,7 +142,7 @@ nav ul li a.active {
   100% { opacity: 1; transform: translateY(0); }
 }
 
-.image-div {
+.cta-image {
   position: relative;
   margin: 3rem 0;
   border-radius: 15px;
@@ -172,7 +152,7 @@ nav ul li a.active {
   background: url('assets/image1.jpg') no-repeat center/cover;
 }
 
-.image-div .overlay {
+.cta-image .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -187,13 +167,13 @@ nav ul li a.active {
   padding: 2rem;
 }
 
-.image-div .overlay h2 {
+.cta-image .overlay h2 {
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
-.image-div .overlay p {
+.cta-image .overlay p {
   font-size: 1.2rem;
   max-width: 600px;
 }
@@ -205,11 +185,6 @@ nav ul li a.active {
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 3rem;
-  transition: transform 0.3s ease;
-}
-
-.mission:hover {
-  transform: translateY(-5px);
 }
 
 .mission h2 {
@@ -220,7 +195,7 @@ nav ul li a.active {
 
 .mission p {
   font-size: 1.2rem;
-  color: rgb(194, 117, 117);
+  color: #e87373;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -326,11 +301,18 @@ button[type="submit"]:hover {
 }
 
 h2 {
-  color:rgb(231, 110, 110);
+  color: rgb(121, 170, 255);
   text-align: center;
   margin-bottom: 1.5rem;
   font-size: 2.2rem;
   font-weight: 600;
+}
+
+.search-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 footer {
@@ -392,15 +374,15 @@ footer a:hover {
       font-size: 1rem;
   }
 
-  .image-div {
+  .cta-image {
       height: 300px;
   }
 
-  .image-div .overlay h2 {
+  .cta-image .overlay h2 {
       font-size: 2rem;
   }
 
-  .image-div .overlay p {
+  .cta-image .overlay p {
       font-size: 1rem;
   }
 
@@ -417,6 +399,10 @@ footer a:hover {
   }
 
   .donor-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .search-form-grid {
       grid-template-columns: 1fr;
   }
 }
