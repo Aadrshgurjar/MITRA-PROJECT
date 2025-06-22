@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MITRA - Blood Donation Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="static/css/index.css">
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for message in messages %}
+          <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">MITRA</a>
@@ -26,12 +37,12 @@
         <section id="home" class="section active">
             <div class="hero">
                 <h1>Welcome to MITRA</h1>
-                <p>Connecting Heroes with Lives in Need</p>
-                <p class="tagline">Your single donation can save up to three lives. Be a lifesaver today!</p>
+                <p>Uniting Heroes to Save Lives</p>
+                <p class="tagline">One donation can save up to three lives. Join the movement today!</p>
                 <button onclick="showSection('register-donor')">Become a Donor</button>
                 <button onclick="showSection('request-blood')">Request Blood</button>
             </div>
-            <div class="cta-image">
+            <div class="image-div">
                 <div class="overlay">
                     <div>
                         <h1 style="color: orange;">" स्वस्थ विश्व की दिशा में एक कदम।"</h1>
@@ -40,13 +51,13 @@
                         <br>
 
                         <h2>Be a Lifesaver</h2>
-                        <p>Join our mission to save lives by donating blood. Your contribution can make a difference!</p>
+                        <p>Your blood donation can make a difference. Register now to help those in need and become part of our life-saving community.</p>
                     </div>
                 </div>
             </div>
             <div class="mission">
                 <h2>Our Mission</h2>
-                <p>MITRA is dedicated to bridging the gap between blood donors and patients in need. We strive to create a seamless platform that encourages voluntary blood donation and ensures timely support for those requiring blood transfusions.</p>
+                <p>MITRA is committed to connecting blood donors with patients in need, creating a seamless platform that promotes voluntary blood donation and ensures timely support for critical medical needs.</p>
             </div>
         </section>
 
@@ -54,18 +65,18 @@
         <section id="register-donor" class="section">
             <h2>Register as a Blood Donor</h2>
             <p style="text-align: center; color: #444; margin-bottom: 2rem;">Join our community of lifesavers by registering as a blood donor today!</p>
-            <form id="donor-form">
+            <form id="donor-form" method="post" action="/register">
                 <div class="form-group">
                     <label for="donor-name">Full Name</label>
-                    <input type="text" id="donor-name" required>
+                    <input type="text" name="donor-name" id="donor-name" required>
                 </div>
                 <div class="form-group">
                     <label for="donor-age">Age</label>
-                    <input type="number" id="donor-age" min="18" max="65" required>
+                    <input type="number" name="donor-age" id="donor-age" min="18" max="65" required>
                 </div>
                 <div class="form-group">
-                    <label for="donor-gender "$>$Gender</label>
-                    <select id="donor-gender" required>
+                    <label for="donor-gender">Gender</label>
+                    <select id="donor-gender" name="donor-gender" required>
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -74,7 +85,7 @@
                 </div>
                 <div class="form-group">
                     <label for="donor-blood-group">Blood Group</label>
-                    <select id="donor-blood-group" required>
+                    <select id="donor-blood-group" name="donor-blood-group" required>
                         <option value="">Select Blood Group</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -88,18 +99,18 @@
                 </div>
                 <div class="form-group">
                     <label for="donor-contact">Contact Number</label>
-                    <input type="tel" id="donor-contact" pattern="[0-9]{10}" required>
+                    <input type="tel" name="donor-contact" id="donor-contact" pattern="[0-9]{10}" required>
                 </div>
                 <div class="form-group">
                     <label for="donor-location">Location (City)</label>
-                    <input type="text" id="donor-location" required>
+                    <input type="text" name="donor-location" id="donor-location" required>
                 </div>
                 <div class="form-group">
                     <label for="donor-availability">Availability</label>
-                    <select id="donor-availability" required>
+                    <select id="donor-availability" name="donor-availability" required>
                         <option value="">Select Availability</option>
                         <option value="Available">Available</option>
-                        <option value="Not Available">Not Available</option>
+                        <option value="Unavailable">Not Available</option>
                     </select>
                 </div>
                 <button type="submit">Register</button>
@@ -110,14 +121,14 @@
         <section id="request-blood" class="section">
             <h2>Request Blood</h2>
             <p style="text-align: center; color: #444; margin-bottom: 2rem;">Need blood urgently? Submit your request, and we'll connect you with available donors.</p>
-            <form id="request-form">
+            <form id="request-form" action="/request_blood " method="post">
                 <div class="form-group">
                     <label for="patient-name">Patient Name</label>
-                    <input type="text" id="patient-name" required>
+                    <input type="text" id="patient-name" name="patient_name" required>
                 </div>
                 <div class="form-group">
                     <label for="blood-type">Blood Type Needed</label>
-                    <select id="blood-type" required>
+                    <select id="blood-type" name="blood_type" required>
                         <option value="">Select Blood Type</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -131,7 +142,7 @@
                 </div>
                 <div class="form-group">
                     <label for="urgency">Urgency Level</label>
-                    <select id="urgency" required>
+                    <select id="urgency" name="Urgency" required>
                         <option value="">Select Urgency</option>
                         <option value="Immediate">Immediate</option>
                         <option value="Within 24 Hours">Within 24 Hours</option>
@@ -140,11 +151,11 @@
                 </div>
                 <div class="form-group">
                     <label for="request-location">Location (City)</label>
-                    <input type="text" id="request-location" required>
+                    <input type="text" name="location" id="request-location" required>
                 </div>
                 <div class="form-group">
                     <label for="request-contact">Contact Number</label>
-                    <input type="tel" id="request-contact" pattern="[0-9]{10}" required>
+                    <input type="tel" name="donor-contact" id="request-contact" pattern="[0-9]{10}" required>
                 </div>
                 <button type="submit">Submit Request</button>
             </form>
@@ -153,43 +164,25 @@
         <!-- Search Donors Page -->
         <section id="search-donors" class="section">
             <h2>Search Available Donors</h2>
-            <p style="text-align: center; color: #444; margin-bottom: 2rem;">Find available blood donors in your area with advanced filtering options.</p>
-            <form id="search-form">
-                <div class="search-form-grid">
-                    <div class="form-group">
-                        <label for="search-blood-type">Blood Type</label>
-                        <select id="search-blood-type">
-                            <option value="">Any</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="search-location">Location (City)</label>
-                        <input type="text" id="search-location">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-availability">Availability</label>
-                        <select id="search-availability">
-                            <option value="">Any</option>
-                            <option value="Available">Available</option>
-                            <option value="Not Available">Not Available</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="search-age-min">Min Age</label>
-                        <input type="number" id="search-age-min" min="18" max="65" placeholder="18">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-age-max">Max Age</label>
-                        <input type="number" id="search-age-max" min="18" max="65" placeholder="65">
-                    </div>
+            <p style="text-align: center; color: #444; margin-bottom: 2rem;">Find available blood donors in your area quickly and easily.</p>
+            <form id="search-form" method="post" action="/search_donors">
+                <div class="form-group">
+                    <label for="search-blood-type">Blood Type</label>
+                    <select id="search-blood-type" name="blood_type">
+                        <option value="">Any</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search-location">Location (City)</label>
+                    <input type="text" name="location" id="search-location">
                 </div>
                 <button type="submit">Search</button>
             </form>
@@ -211,20 +204,16 @@
                     <input type="password" id="login-password" required>
                 </div>
                 <button type="submit">Login</button>
-                <p style="text-align: center; margin-top: 1rem;">
-                    <a href="#" style="color: #c62828; text-decoration: none;" onclick="showSection('register-donor')">Don't have an account? Register as a Donor</a>
-                </p>
             </form>
         </section>
     </div>
 
     <footer>
         <p>MITRA - Saving Lives Through Blood Donation</p>
-        <p>Contact us: <a href="mailto:support@mitra.org">mitrahelp21@gmail.com</a> | © 2025 MITRA</p>
+        <p>Contact us: <a href="mailto:support@mitra.org">mitrahelp@gmail.com</a> | © 2025 MITRA</p>
     </footer>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-    <script src="script.js"></script>
-       
+    <script src="static/js/script.js"></script>
 </body>
 </html>
